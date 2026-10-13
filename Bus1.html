@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUS BOOK</title>
+</head>
+
+<body>
+
+<div style="padding-left: 20px; color: white; background-color: blueviolet;
+            border: 2px solid red; height: 800px; width: 400px;">
+
+    <center>
+        <h1>Welcome Bus Booking System</h1>
+    </center>
+
+    <h3>User Informations</h3>
+
+    <p>
+        USER NAME:
+        <input type="text" id="username">
+    </p>
+
+    <p>
+        Address:
+        <select id="city">
+            <option value="GOA">GOA</option>
+            <option value="LUCKNOW">LUCKNOW</option>
+            <option value="MEERUT">MEERUT</option>
+            <option value="DELHI">DELHI</option>
+        </select>
+    </p>
+
+    <p>
+        User Age:
+        <input type="text" id="age">
+    </p>
+
+    <p>
+        User Adhar No:
+        <input type="text" id="adhar">
+    </p>
+
+    <h3>Bus Booking Options</h3>
+
+    <p>
+        Select Bus Options:
+        <br>
+
+        AC BUS: ₹2000
+        <input type="radio" name="busType" value="AC">
+    </p>
+
+    <p>
+        Non-AC BUS: ₹1000
+        <input type="radio" name="busType" value="NON-AC">
+    </p>
+
+    <p>
+        Select Your Seat:
+
+        <select id="seat">
+            <option value="4">1</option>
+            <option value="5">2</option>
+            <option value="6">3</option>
+            <option value="7">4</option>
+        </select>
+    </p>
+
+    <button onclick="saveBooking()">Click for Save</button>
+
+</div>
+
+
+<script>
+
+function saveBooking() {
+
+    let busType = document.querySelector(
+        'input[name="busType"]:checked'
+    );
+
+    let seat = document.getElementById("seat").value;
+
+    if (!busType) {
+        alert("Please select Bus Type");
+        return;
+    }
+
+    fetch("http://localhost:8080/book?busType="
+        + busType.value
+        + "&seat="
+        + seat)
+
+        .then(response => response.text())
+
+        .then(data => {
+            alert(data);
+        })
+
+        .catch(error => {
+            alert("Transaction Failed!");
+        });
+}
+
+</script>
+
+</body>
+</html>
